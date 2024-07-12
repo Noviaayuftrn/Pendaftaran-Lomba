@@ -19,7 +19,9 @@ class Donasi extends Model
         'NAMA_PENDONASI',
         'ALAMAT_PENDONASI',
         'NO_TLPN_PENDONASI',
-        'FOTO_BUKTI_TRANSFER'
+        'JUMLAH_DONASI',
+        'FOTO_BUKTI_TRANSFER',
+        'TGL_DONASI'
     ];
     
 

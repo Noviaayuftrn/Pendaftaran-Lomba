@@ -22,10 +22,11 @@ class Pendaftaran extends Model
         'JENIS_KELAMIN',
         'NOMOR_TELPON',
         'TANGGAL_PENDAFTARAN',
+        'ID_LOMBA'
     ];
 
     public function lomba()
     {
-        return $this->hasMany(Lomba::class, 'ID_MASYARAKAT');
+        return $this->belongsTo(Lomba::class, 'ID_LOMBA');
     }
 }

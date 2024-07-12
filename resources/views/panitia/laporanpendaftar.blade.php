@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Forms / Elements - NiceAdmin Bootstrap Template</title>
+  <title>Admin-Laporan Pendaftar</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -75,7 +75,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">AgustusFestivity</span>
+        <span class="d-none d-lg-block">Admin</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -112,7 +112,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
+        <a class="nav-link collapsed" href="{{ route('dashboard') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -124,17 +124,17 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="lomba.html">
+            <a href="{{ route('lombas.lomba') }}">
               <i class="bi bi-circle"></i><span>Lomba</span>
             </a>
           </li>  
           <li>
-            <a href="laporanpendaftaran.html" class="active">
+            <a href="{{ route('panitia.laporanpendaftar') }}" class="active">
               <i class="bi bi-circle"></i><span>Laporan Pendaftaran</span>
             </a>
           </li>
           <li>
-            <a href="forms-layouts.html">
+            <a href="{{ route('donasi.laporan') }}">
               <i class="bi bi-circle"></i><span>Laporan Donasi</span>
             </a>
           </li>
@@ -144,11 +144,25 @@
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="profiles.html">
+        <a class="nav-link collapsed" href="{{ route('profiles') }}">
           <i class="bi bi-person"></i>
           <span>Profile Panitia</span>
         </a>
       </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('donaturs') }}">
+          <i class="bi bi-people"></i>
+          <span>Data Donatur</span>
+        </a>
+      </li><!-- End donatur Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('dokumentasi') }}">
+        <i class="bi bi-book"></i>
+          <span>Dokumentasi</span>
+        </a>
+      </li><!-- End dokumentasi Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-blank.html">
@@ -170,6 +184,23 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="card">
+          <div class="card-body">
+              <h5 class="card-title">Filter Berdasarkan Lomba</h5>
+              <form method="GET" action="{{ route('panitia.laporanpendaftar') }}">
+                <div class="mb-3">
+                  <label for="lomba" class="form-label">Pilih Lomba</label>
+                  <select class="form-select" id="lomba" name="lomba">
+                    <option value="">Semua Lomba</option>
+                    @foreach($lombas as $lomba)
+                    <option value="{{ $lomba->ID }}" {{ request('lomba') == $lomba->ID ? 'selected' : '' }}>
+                      {{ $lomba->NAMA_LOMBA }}
+                    </option>
+                    @endforeach
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Tampilkan</button>
+              </form>
+            </div>
           
           <div class="card">
             <div class="card-body">
@@ -183,6 +214,7 @@
                     <th scope="col">Jenis Kelamin</th>
                     <th scope="col">Nomor Telepon</th>
                     <th scope="col">Tanggal Pendaftaran</th>
+                    <th scope="col">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -195,6 +227,14 @@
                       <td>{{ $item->JENIS_KELAMIN }}</td>
                       <td>{{ $item->NOMOR_TELPON }}</td>
                       <td>{{ $item->TANGGAL_PENDAFTARAN }}</td>
+                      <td>
+                      <!-- Tombol untuk menghapus donasi -->
+                      <form action="{{ route('pendaftaran.destroy', $item->ID_MASYARAKAT) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger">Hapus</button>
+                      </form>
+                      </td>
                   </tr>
                   @endforeach
                 </tbody>

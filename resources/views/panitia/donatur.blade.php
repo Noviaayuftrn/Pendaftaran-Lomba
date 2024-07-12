@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Admin-Laporan Donasi</title>
+  <title>Admin-Data Donatur</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -36,7 +36,6 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <!-- Custom CSS -->
   <style>
     .table-container {
       padding: 20px;
@@ -131,25 +130,26 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Formulir</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{ route('lombas.lomba') }}">
               <i class="bi bi-circle"></i><span>Lomba</span>
             </a>
-          </li>  
+          </li>
           <li>
-            <a href="{{ route('panitia.laporanpendaftar') }}" >
+            <a href="{{ route('panitia.laporanpendaftar') }}">
               <i class="bi bi-circle"></i><span>Laporan Pendaftaran</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('donasi.laporan') }}" class="active">
+            <a href="{{ route('donasi.laporan') }}">
               <i class="bi bi-circle"></i><span>Laporan Donasi</span>
             </a>
           </li>
+          <li>
         </ul>
       </li><!-- End Forms Nav -->
 
@@ -163,7 +163,7 @@
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('donaturs') }}">
+        <a class="nav-link " href="{{ route('donaturs') }}">
           <i class="bi bi-people"></i>
           <span>Data Donatur</span>
         </a>
@@ -190,7 +190,7 @@
   <!-- Main Content Section -->
   <main id="main" class="main">
         <div class="pagetitle">
-            <h1>Laporan Donasi</h1>
+            <h1>Laporan Donatur</h1>
         </div><!-- End Page Title -->
 
         <section class="section">
@@ -198,38 +198,23 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Daftar Donasi</h5>
+                            <h5 class="card-title">Daftar Donatur</h5>
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID Donasi</th>
-                                        <th scope="col">Nama Pendonasi</th>
-                                        <th scope="col">Alamat Pendonasi</th>
-                                        <th scope="col">No. Telepon Pendonasi</th>
-                                        <th scope="col">Uang Donasi</th>
-                                        <th scope="col">Foto Bukti Transfer</th>
-                                        <th scope="col">Tanggal Donasi</th>
-                                        <th scope="col">Aksi</th> <!-- Kolom untuk tombol delete -->
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Nama Donatur</th>
+                                        <th scope="col">Alamat Donatur</th>
+                                        <th scope="col">No. Telepon Pendonatur</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($donasi as $item)
+                                    @foreach($donaturs as $donatur)
                                     <tr>
-                                        <td>{{ $item->ID_DONASI }}</td>
-                                        <td>{{ $item->NAMA_PENDONASI }}</td>
-                                        <td>{{ $item->ALAMAT_PENDONASI }}</td>
-                                        <td>{{ $item->NO_TLPN_PENDONASI }}</td>
-                                        <td>{{ $item->JUMLAH_DONASI }}</td>
-                                        <td><img src="{{ asset($item->FOTO_BUKTI_TRANSFER) }}" alt="Bukti Transfer" width="100"></td>
-                                        <td>{{ $item->TGL_DONASI }}</td>
-                                        <td>
-                                        <!-- Tombol untuk menghapus donasi -->
-                                        <form action="{{ route('donasi.destroy', $item->ID_DONASI) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Hapus</button>
-                                        </form>
-                                    </td>
+                                    <td>{{ $donatur->ID_DONASI }}</td>
+                                    <td>{{ $donatur->NAMA }}</td>
+                                    <td>{{ $donatur->ALAMAT }}</td>
+                                    <td>{{ $donatur->NO_TELPON }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -241,9 +226,9 @@
         </section>
     </main><!-- End #main -->
 
-  <!-- Back to Top Button -->
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  
 
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

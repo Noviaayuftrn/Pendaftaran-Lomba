@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Donasi;
+use App\Models\Donatur;
 
 class DonasiController extends Controller
 {
@@ -25,7 +26,9 @@ class DonasiController extends Controller
             'NAMA_PENDONASI' => 'required|string|max:25',
             'ALAMAT_PENDONASI' => 'required|string|max:30',
             'NO_TLPN_PENDONASI' => 'required|numeric',
+            'JUMLAH_DONASI' => 'required|numeric',
             'FOTO_BUKTI_TRANSFER' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'TGL_DONASI' => 'required|date',
         ]);
 
         Log::info('Validation passed');
@@ -42,7 +45,9 @@ class DonasiController extends Controller
             'NAMA_PENDONASI' => $request->NAMA_PENDONASI,
             'ALAMAT_PENDONASI' => $request->ALAMAT_PENDONASI,
             'NO_TLPN_PENDONASI' => $request->NO_TLPN_PENDONASI,
+            'JUMLAH_DONASI' => $request->JUMLAH_DONASI,
             'FOTO_BUKTI_TRANSFER' => $path ?? null,
+            'TGL_DONASI' => $request->TGL_DONASI,
         ]);
 
         Log::info('Donasi created');
@@ -50,10 +55,24 @@ class DonasiController extends Controller
         return redirect()->route('donasi.create')->with('success', 'Donasi Tersimpan.');
     }
 
+    public function destroy(Donasi $donasi)
+    {
+        $donasi->delete();
+
+        return redirect()->route('donasi.laporan')
+                         ->with('success', 'Donasi deleted successfully.');
+    }
+
     //sisi admin atau panitia
     public function laporan()
     {
         $donasi = Donasi::all();
         return view('panitia.laporandonasi', compact('donasi'));
+    }
+
+    public function donatur()
+    {
+        $donaturs = Donatur::all();
+        return view('panitia.donatur', compact('donaturs'));
     }
 }

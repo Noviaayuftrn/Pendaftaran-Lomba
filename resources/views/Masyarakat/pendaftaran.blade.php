@@ -43,7 +43,7 @@
 
 
 <div class="pagetitle">
-  <h1>Formulir Pendaftaran</h1>
+  <h1>Formulir Pendaftaran Lomba {{ $lomba->NAMA_LOMBA }}</h1>
 </div><!-- End Page Title -->
 
 <section class="section">
@@ -65,6 +65,7 @@
             @csrf
            
             <div class="col-md-12">
+              <input type="hidden" name="ID_LOMBA" value="{{ $lomba->id }}">
               <label for="nama" class="form-label">Nama Lengkap</label>
               <input type="text" class="form-control" id="nama" name="NAMA" required maxlength="25">
             </div>

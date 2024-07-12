@@ -129,8 +129,16 @@
                   <input type="text" class="form-control" id="NO_TLPN_PENDONASI" name="NO_TLPN_PENDONASI" required>
                 </div>
                 <div class="col-md-12">
+                  <label for="JUMLAH_DONASI" class="form-label">Jumlah Uang Yang didonasikan </label>
+                  <input type="text" class="form-control" id="JUMLAH_DONASI" name="JUMLAH_DONASI" required>
+                </div>
+                <div class="col-md-12">
                   <label for="FOTO_BUKTI_TRANSFER" class="form-label">Foto Bukti Transfer</label>
                   <input type="file" class="form-control" id="FOTO_BUKTI_TRANSFER" name="FOTO_BUKTI_TRANSFER" required>
+                </div>
+                <div class="col-12">
+                  <label for="TGL_DONASI" class="form-label">Tanggal Pendaftaran</label>
+                  <input type="date" class="form-control" id="TGL_DONASI" name="TGL_DONASI" required>
                 </div>
                 <div class="col-md-12">
                   <button type="submit" class="btn btn-primary">Kirim</button>

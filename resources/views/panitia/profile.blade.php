@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Users / Profile - NiceAdmin Bootstrap Template</title>
+  <title>Admin- Profile</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -46,7 +46,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">AgustusFestivity</span>
+        <span class="d-none d-lg-block">Admin</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -112,7 +112,7 @@
             </a>
           </li>
           <li>
-            <a href="forms-layouts.html">
+            <a href="{{ route('donasi.laporan') }}">
               <i class="bi bi-circle"></i><span>Laporan Donasi</span>
             </a>
           </li>
@@ -127,6 +127,20 @@
           <span>Profile Panitia</span>
         </a>
       </li><!-- End Profile Page Nav -->    
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('donaturs') }}">
+          <i class="bi bi-people"></i>
+          <span>Data Donatur</span>
+        </a>
+      </li><!-- End donatur Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('dokumentasi') }}">
+        <i class="bi bi-book"></i>
+          <span>Dokumentasi</span>
+        </a>
+      </li><!-- End dokumentasi Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-blank.html">
@@ -145,39 +159,38 @@
     <h1>Profile Panitia</h1>
   </div><!-- End Page Title -->
 
-    <div class="card">
-        <div class="card-body pb-0">
-            <h5 class="card-title">Profile Panitia</h5>
+  <div class="card">
+    <div class="card-body pb-0">
+        <h5 class="card-title">Profile Panitia</h5>
 
-            <div class="profiles">
-                <!-- Loop through profiles from the database -->
-                @foreach($profiles as $profile)
-                <div class="profile-item clearfix">
-                    @if($profile->gambar)
-                        <img src="{{ asset('storage/' . $profile->gambar) }}" alt="Profile Image" class="float-start me-3" style="width: 100px; height: 100px;">
-                    @else
-                        <img src="{{ asset('storage/default.png') }}" alt="Default Image" class="float-start me-3" style="width: 100px; height: 100px;">
-                    @endif
-                    <h4>{{ $profile->nama }}</h4>
-                    <p>{{ $profile->jabatan }}</p>
-                    <p>{{ $profile->nomor_telepon }}</p>
+        <div class="profiles">
+            <!-- Loop through profiles from the database -->
+            @foreach($profiles as $profile)
+            <div class="profile-item clearfix">
+                @if($profile->gambar)
+                    <img src="{{ asset('storage/' . $profile->gambar) }}" alt="Profile Image" class="float-start me-3 mt-2" style="width: 100px; height: 100px;">
+                @else
+                    <img src="{{ asset('storage/default.png') }}" alt="Default Image" class="float-start me-3 mt-2" style="width: 100px; height: 100px;"> 
+                @endif
+                <h4>{{ $profile->nama }}</h4>
+                <p>{{ $profile->jabatan }}</p>
+                <p>{{ $profile->nomor_telepon }}</p>
 
-                    <!-- Button to trigger edit modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal{{ $profile->id }}">
-                        Edit
-                    </button>
+                <span class="ml-2"></span>
+                <!-- Button to trigger edit modal -->
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#editProfileModal{{ $profile->id }}">Edit</button>
+                <form action="{{ route('profiles.destroy', $profile->id) }}" method="POST" class="d-inline">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger mb-3">Delete</button>
+                </form>
+                <span class="ml-2"></span>
+            </div>
+            @endforeach
+        </div><!-- End profiles -->
+    </div>
+</div>
 
-                    <!-- Form to delete profile -->
-                    <form action="{{ route('profiles.destroy', $profile->id) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </div>
-                @endforeach
-            </div><!-- End profiles -->
-
-        </div>
     </div><!-- End Profil Panitia -->
 
     <!-- Create Profile Form -->
@@ -203,6 +216,7 @@
                     <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
                 </div>
                 <button type="submit" class="btn btn-primary">Create Profile</button>
+                <span class="ml-2"></span>
             </form>
         </div>
     </div><!-- End Create Profile Form -->
