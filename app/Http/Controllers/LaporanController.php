@@ -12,6 +12,7 @@ class LaporanController extends Controller
     {
         $selectedLomba = $request->input('lomba_id');
         $lombas = Lomba::all();
+        $dropActive = 'lapPendaf';
 
         $pendaftars = Pendaftaran::when($selectedLomba, function($query) use ($selectedLomba) {
             return $query->where('lomba_id', $selectedLomba);

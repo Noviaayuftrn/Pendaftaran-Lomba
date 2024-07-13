@@ -29,6 +29,27 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
+  <style>
+    body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    margin-right: 250px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+  </style>
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -43,11 +64,11 @@
 
 
 <div class="pagetitle">
-  <h1>Formulir Pendaftaran</h1>
+  <h1>Formulir Pendaftaran Lomba</h1>
 </div><!-- End Page Title -->
 
-<section class="section">
-  <div class="row">
+<section class="section" style="justify-content: center; align-items: center; height: 100vh;">
+  <div class="row justify-content-center">
     <div class="col-lg-12">
 
       <div class="card">
@@ -63,10 +84,18 @@
 
           <form class="row g-3" method="POST" action="{{ route('pendaftaran.store') }}">
             @csrf
-           
+          
+            <div class="col-md-12">
+            <label for="lomba" class="form-label">Pilih Lomba</label>
+            <select class="form-select" id="lomba" name="ID_LOMBA" required>
+            @foreach($lombas as $lomba)
+              <option value="{{ $lomba->ID_LOMBA }}">{{ $lomba->NAMA_LOMBA }}</option>
+            @endforeach
+            </select>
+            </div>
             <div class="col-md-12">
               <label for="nama" class="form-label">Nama Lengkap</label>
-              <input type="text" class="form-control" id="nama" name="NAMA" required maxlength="25">
+              <input type="text" class="form-control" id="nama" name="NAMA" required>
             </div>
             <div class="col-md-6">
               <label for="umur" class="form-label">Umur</label>
@@ -92,7 +121,7 @@
               <label for="tanggal_pendaftaran" class="form-label">Tanggal Pendaftaran</label>
               <input type="date" class="form-control" id="tanggal_pendaftaran" name="TANGGAL_PENDAFTARAN" required>
             </div>
-            <div class="text-center mt-3">
+            <div class="container mt-3">
               <button type="submit" class="btn btn-primary">Kirim</button>
             </div>
             <!-- Tambahkan tombol kembali di sini -->

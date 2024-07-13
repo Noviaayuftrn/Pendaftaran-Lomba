@@ -10,7 +10,9 @@ class LombaController extends Controller
     public function lomba()
     {
         $lombas = Lomba::all();
-        return view('panitia.lomba', compact('lombas'));
+        $active = 'dropdown';
+        $dropActive = 'lomba';
+        return view('panitia.lomba', compact('lombas', 'active', 'dropActive'));
     }
 
     public function store(Request $request)
