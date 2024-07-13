@@ -10,8 +10,8 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TopicController;
 
-Route::get('/', function () {
-    return view('dashboard');
+Route::get('/dashboard', function () {
+    return view('panitia.dashboard');
 });
 
 //ADMIN/PANITIA
@@ -54,8 +54,7 @@ Route::post('lombas/store', [LombaController::class, 'store'])->name('lombas.sto
 Route::delete('lombas/{lomba}', [LombaController::class, 'destroy'])->name('lombas.destroy');
 
 // Route untuk masyarakat 
-/*
 Route::get('/pendaftaran', [PendaftaranController::class, 'create'])->name('pendaftaran.create');
-Route::post('pendaftaran/store', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+Route::post('/pendaftaran/store', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
 Route::delete('/pendaftaran/{id}', [PendaftaranController::class, 'destroy'])->name('pendaftaran.destroy');
-Route::get('/laporanpendaftar', [PendaftaranController::class, 'laporanPendaftar'])->name('panitia.laporanpendaftar');*/
+Route::get('/laporanpendaftar', [PendaftaranController::class, 'laporanPendaftar'])->name('panitia.laporanpendaftar');

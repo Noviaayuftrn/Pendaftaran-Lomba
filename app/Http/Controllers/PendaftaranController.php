@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pendaftaran;
+use App\Models\Lomba;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -10,7 +11,8 @@ class PendaftaranController extends Controller
 {
     public function create()
     {
-        return view('masyarakat.pendaftaran', compact('pendaftars'));
+        $lomba = Lomba::all();
+        return view('masyarakat.pendaftaran', compact('lomba'));
     }
 
     public function store(Request $request)
@@ -24,7 +26,7 @@ class PendaftaranController extends Controller
             'JENIS_KELAMIN' => 'required|string|max:1',
             'NOMOR_TELPON' => 'required|numeric',
             'TANGGAL_PENDAFTARAN' => 'required|date',
-            'ID_LOMBA' => 'required|exists:lombas,id',
+            'ID_LOMBA' => 'required',
         ]);
         Log::info('Validasi berhasil.');
         
@@ -45,17 +47,8 @@ class PendaftaranController extends Controller
 
     public function laporanPendaftar(Request $request)
     {
-        // Mengambil data masyarakat beserta lomba yang mereka pilih
-        $query = Pendaftaran::query();
-
-        if ($request->has('lomba') && $request->lomba != '') {
-            $query->where('ID_LOMBA', $request->lomba);
-        }
-
-        $pendaftars = $query->get();
-        $lombas = Lomba::all();
-        // Kembalikan view dengan data
-        return view('panitia.laporanpendaftar', compact('pendaftars', 'lombas'));
+        
+        return view('panitia.laporanpendaftar', compact('masyarakat'));
     }
 
     public function destroy($id)

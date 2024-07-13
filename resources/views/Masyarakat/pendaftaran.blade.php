@@ -43,12 +43,12 @@
 
 
 <div class="pagetitle">
-  <h1>Formulir Pendaftaran Lomba {{ $lomba->NAMA_LOMBA }}</h1>
+  <h1>Formulir Pendaftaran Lomba</h1>
 </div><!-- End Page Title -->
 
 <section class="section">
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-10">
 
       <div class="card">
         <div class="card-body">
@@ -65,7 +65,6 @@
             @csrf
            
             <div class="col-md-12">
-              <input type="hidden" name="ID_LOMBA" value="{{ $lomba->id }}">
               <label for="nama" class="form-label">Nama Lengkap</label>
               <input type="text" class="form-control" id="nama" name="NAMA" required maxlength="25">
             </div>
@@ -93,12 +92,20 @@
               <label for="tanggal_pendaftaran" class="form-label">Tanggal Pendaftaran</label>
               <input type="date" class="form-control" id="tanggal_pendaftaran" name="TANGGAL_PENDAFTARAN" required>
             </div>
-            <div class="text-center mt-3">
+            <div>
+                <label for="id_lomba">Jenis Lomba:</label>
+                <select id="id_lomba" name="id_lomba" required>
+                    @foreach ($lomba as $l)
+                        <option value="{{ $l->ID_LOMBA }}">{{ $l->NAMA_LOMBA }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="container mt-5">
               <button type="submit" class="btn btn-primary">Kirim</button>
             </div>
             <!-- Tambahkan tombol kembali di sini -->
             <div class="container">
-              <a href="{{ route('lombas.lomba') }}" class="btn btn-primary mt-3">Kembali ke Halaman Lomba</a>
+              <a href="{{ route('lombas.lomba') }}" class="btn btn-primary mt-3"> <-- Kembali ke Halaman Lomba</a>
             </div>
           </form><!-- End Formulir Pendaftaran -->
 

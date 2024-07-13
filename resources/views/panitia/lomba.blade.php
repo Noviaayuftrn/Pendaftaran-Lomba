@@ -40,8 +40,8 @@
             height: auto;
         }
         .card {
-        width: 350px; /* Adjust the width as needed */
-        height: 500px;"
+        width: 300px; /* Adjust the width as needed */
+        height: 200px;"
         background-color: #fff;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         border-radius: 4px;
@@ -166,11 +166,31 @@
             <h1>Formulir Pendaftaran Lomba</h1>
         </div><!-- End Page Title -->
 
+        
         <section class="section">
             <div class="container">
-                <div class="d-flex justify-content-between mb-4">
+            <div class="row">
+                    <div class="col-md-4 mb-4">
+                    <div class="col-lg-6">
+
+                    <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Daftar Lomba 17 Agustus</h5>
+                        <p>Klik di sini untuk mendaftarkan diri</p>
+                        <a href="{{ route('pendaftaran.create') }}" class="btn btn-primary">Daftar</a>
+                    </div>
+                    </div>
+
+                    </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLombaModal">ADD LOMBA</button>
                 </div>
+                
+                <div class="pagetitle">
+                    <h1>Jenis-Jenis Lomba</h1>
+                </div><!-- End Page Title -->
                 <div class="row">
                     @foreach ($lombas as $lomba)
                     <div class="col-md-4 mb-4">
@@ -184,7 +204,7 @@
                                 @else
                                 <img src="https://via.placeholder.com/150" alt="Gambar Placeholder" class="img-fluid mb-3">
                                 @endif
-                                <a href="{{ route('pendaftaran.create') }}" class="btn btn-primary">Daftar</a>
+                                
                                 <form action="{{ route('lombas.destroy', $lomba->ID_LOMBA) }}" method="POST" class="mt-2">
                                     @csrf
                                     @method('DELETE')
