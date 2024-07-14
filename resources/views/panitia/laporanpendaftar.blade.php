@@ -50,19 +50,19 @@
           <div class="card">
           <div class="card-body">
               <h5 class="card-title">Filter Berdasarkan Lomba</h5>
-              <form method="GET" action="{{ route('panitia.laporanpendaftar') }}">
-                <div class="mb-3">
-                  <label for="lomba" class="form-label">Pilih Lomba</label>
-                  <select class="form-select" id="lomba" name="lomba">
-                    <option value="">Semua Lomba</option>
-                    @foreach($lombas as $lomba)
-                    <option value="{{ $lomba->ID }}" {{ request('lomba') == $lomba->ID ? 'selected' : '' }}>
-                      {{ $lomba->NAMA_LOMBA }}
-                    </option>
-                    @endforeach
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Tampilkan</button>
+                <form method="GET" action="{{ route('panitia.laporanpendaftar') }}">
+                  <div class="mb-3">
+                      <label for="lomba" class="form-label">Pilih Lomba</label>
+                      <select class="form-select" id="lomba" name="lomba">
+                          <option value="">Semua Lomba</option>
+                          @foreach($lombas as $lomba)
+                          <option value="{{ $lomba->ID_LOMBA }}" {{ request('lomba') == $lomba->ID_LOMBA ? 'selected' : '' }}>
+                              {{ $lomba->NAMA_LOMBA }}
+                          </option>
+                          @endforeach
+                      </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Tampilkan</button>
               </form>
             </div>
           
@@ -78,6 +78,7 @@
                     <th scope="col">Jenis Kelamin</th>
                     <th scope="col">Nomor Telepon</th>
                     <th scope="col">Tanggal Pendaftaran</th>
+                    <th scope="col">Jenis Lomba</th>
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
@@ -92,6 +93,7 @@
                       <td>{{ $item->JENIS_KELAMIN }}</td>
                       <td>{{ $item->NOMOR_TELPON }}</td>
                       <td>{{ $item->TANGGAL_PENDAFTARAN }}</td>
+                      <td>{{ $item->lomba->NAMA_LOMBA }}</td>
                       <td>
                       <!-- Tombol untuk menghapus donasi -->
                       <form action="{{ route('pendaftaran.destroy', $item->ID_MASYARAKAT) }}" method="POST">

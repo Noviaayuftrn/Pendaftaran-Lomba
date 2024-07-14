@@ -61,7 +61,7 @@ Route::delete('lombas/{lomba}', [LombaController::class, 'destroy'])->name('lomb
 Route::get('/pendaftaran', [PendaftaranController::class, 'create'])->name('pendaftaran.create');
 Route::post('/pendaftaran/store', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
 Route::delete('/pendaftaran/{id}', [PendaftaranController::class, 'destroy'])->name('pendaftaran.destroy');
-Route::get('/laporanpendaftar', [PendaftaranController::class, 'laporanPendaftar'])->name('panitia.laporanpendaftar');
+Route::get('/laporanpendaftar', [LaporanController::class, 'laporan'])->name('panitia.laporanpendaftar');
 
 // Route untuk login/register panitia
 Route::get('/login', [loginController::class, 'login'])->name('login')->middleware('guest');
