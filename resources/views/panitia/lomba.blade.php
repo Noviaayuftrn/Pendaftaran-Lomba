@@ -36,28 +36,8 @@
 
 <main id="main" class="main">
 
-<div class="pagetitle">
-    <h1>Formulir Pendaftaran Lomba</h1>
-</div><!-- End Page Title -->
-
-
 <section class="section">
     <div class="container">
-    <div class="row">
-            <div class="col-md-4 mb-4">
-            <div class="col-lg-6">
-
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Daftar Lomba 17 Agustus</h5>
-                <p>Klik di sini untuk mendaftarkan diri</p>
-                <a href="{{ route('pendaftaran.create') }}" class="btn btn-primary">Daftar</a>
-            </div>
-            </div>
-
-            </div>
-            </div>
-        </div>
         <div class="d-flex justify-content-between mb-3">
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLombaModal">ADD LOMBA</button>
         </div>
