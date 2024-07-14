@@ -71,7 +71,9 @@ class DonasiController extends Controller
         $donasi = Donasi::all();
         $active = 'dropdown';
         $dropActive = 'lapDon';
-        return view('panitia.laporandonasi', compact('donasi', 'active', 'dropActive'));
+        $totalDonasi = $donasi->sum('JUMLAH_DONASI');
+        $totalDonasiFormatted = 'Rp ' . number_format($totalDonasi, 0, ',', '.');
+        return view('panitia.laporandonasi', compact('donasi', 'active', 'dropActive', 'totalDonasiFormatted'));
     }
 
     public function donatur()
@@ -81,4 +83,12 @@ class DonasiController extends Controller
         $dropActive = '';
         return view('panitia.donatur', compact('donaturs','active', 'dropActive'));
     }
+
+    public function showLaporan()
+    {
+    $donasi = Donasi::all();
+    $totalDonasi = $donasi->sum('jumlah');
+    return view('laporan', compact('donasi', 'totalDonasi'));
+    }
+
 }

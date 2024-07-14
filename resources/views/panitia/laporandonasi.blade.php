@@ -71,7 +71,7 @@
                                         <td>{{ $item->NAMA_PENDONASI }}</td>
                                         <td>{{ $item->ALAMAT_PENDONASI }}</td>
                                         <td>{{ $item->NO_TLPN_PENDONASI }}</td>
-                                        <td>{{ $item->JUMLAH_DONASI }}</td>
+                                        <td>{{ 'Rp ' . number_format($item->JUMLAH_DONASI, 0, ',', '.') }}</td>
                                         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewBukti{{ $item->ID_DONASI }}">
                                           Lihat</button></td>
                                         <td>{{ $item->TGL_DONASI }}</td>
@@ -105,6 +105,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <tr>
+                              <td clospan="2"> Total Donasi : </td>
+                              <td>{{$totalDonasiFormatted}}</td>
+                            </tr>
                         </div>
                     </div>
                 </div>
