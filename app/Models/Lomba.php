@@ -16,13 +16,12 @@ class Lomba extends Model
     public $timestamps = false;  // Nonaktifkan timestamps jika tidak ada kolom created_at dan updated_at
 
     protected $fillable = [
-        'ID_MASYARAKAT',
         'NAMA_LOMBA',
         'gambar',
     ];
 
     public function masyarakat()
     {
-        return $this->belongsTo(Masyarakat::class, 'ID_MASYARAKAT');
+        return $this->hasMany(Pendaftaran::class, 'ID_LOMBA');
     }
 }

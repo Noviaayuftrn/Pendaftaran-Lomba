@@ -1,8 +1,9 @@
-@extends('panitia/main')
+@extends('Masyarakat/main')
 
-@section('title', 'Admin Lomba')
+@section('title', 'List Lomba')
 
 @section('style-css')
+
 <style>
         .card-header {
             background-color: #ADD8E6;
@@ -30,16 +31,34 @@
             border-color: #FF0000;
         }
     </style>
+
 @endsection
 
 @section('dashboard-content')
 
 <main id="main" class="main">
 
+<div class="pagetitle">
+    <h1>Formulir Pendaftaran Lomba</h1>
+</div><!-- End Page Title -->
+
+
 <section class="section">
     <div class="container">
-        <div class="d-flex justify-content-between mb-3">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLombaModal">ADD LOMBA</button>
+    <div class="row">
+            <div class="col-md-4 mb-4">
+            <div class="col-lg-6">
+
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Daftar Lomba 17 Agustus</h5>
+                <p>Klik di sini untuk mendaftarkan diri</p>
+                <a href="{{ route('pendaftaran.create') }}" class="btn btn-primary">Daftar</a>
+            </div>
+            </div>
+
+            </div>
+            </div>
         </div>
         
         <div class="pagetitle">
@@ -58,12 +77,6 @@
                         @else
                         <img src="https://via.placeholder.com/150" alt="Gambar Placeholder" class="img-fluid mb-3">
                         @endif
-                        
-                        <form action="{{ route('lombas.destroy', $lomba->ID_LOMBA) }}" method="POST" class="mt-2">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-delete">Delete</button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -74,31 +87,5 @@
 
 </main><!-- End #main -->
 
-<!-- Modal Tambah Lomba -->
-<div class="modal fade" id="addLombaModal" tabindex="-1" role="dialog" aria-labelledby="addLombaModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="addLombaModalLabel">Tambah Lomba</h5>
-            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form action="{{ route('lombas.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="form-group">
-                    <label for="nama_lomba">Nama Lomba</label>
-                    <input type="text" class="form-control" id="nama_lomba" name="nama_lomba" required>
-                </div>
-                <div class="form-group">
-                    <label for="gambar">Gambar</label>
-                    <input type="file" class="form-control" id="gambar" name="gambar">
-                </div>
-                <button type="submit" class="btn btn-primary mt-3">Simpan</button>
-            </form>
-        </div>
-    </div>
-</div>
-</div>
 @endsection
+

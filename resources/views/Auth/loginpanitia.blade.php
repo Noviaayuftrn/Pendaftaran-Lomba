@@ -49,7 +49,7 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                <a href="{{ route('login') }}" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
                   <span class="d-none d-lg-block">AgustusFestivity</span>
                 </a>
@@ -64,13 +64,25 @@
                     <p class="text-center small">masukkan Email dan Password Anda untuk Masuk</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  @if(session()->has('loginError'))
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('loginError') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label "Close"></button>
+                  </div>
+                  @endif
 
+                  <form class="row g-3 needs-validation" method="POST" action="{{ route('loginto') }}" novalidate>
+                    @csrf
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Email</label>
+                      <label for="email" class="form-label">Email</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your Email.</div>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                        id="email" autofocus required>
+                        @error('email')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                        @enderror
                       </div>
                     </div>
 
@@ -84,6 +96,7 @@
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Remember me</label>
+                        <p class="small mb-0">don't have an account? <a href="{{route('regis')}}">Sign up</a></p>
                       </div>
                     </div>
                     <div class="col-12">
@@ -117,6 +130,31 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+    function handleLogin(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Get form elements
+      const email = document.getElementById('yourUsername').value;
+      const password = document.getElementById('yourPassword').value;
+
+      // Replace with your actual authentication logic
+      if (validateCredentials(email, password)) {
+        // Redirect to the dashboard
+        window.location.href = 'panitia.dashboard';
+      } else {
+        // Show an error message
+        alert('Invalid email or password. Please try again.');
+      }
+    }
+
+    function validateCredentials(email, password) {
+      // Placeholder for actual authentication logic
+      // Return true if credentials are valid, otherwise false
+      return email === 'daffa.ilhamsyah@gmail.com' && password === 'daffa123';
+    }
+  </script>
 
 </body>
 

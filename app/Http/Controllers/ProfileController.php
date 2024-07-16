@@ -11,7 +11,9 @@ class ProfileController extends Controller
     public function profile()
     {
         $profiles = Profile::all();
-        return view('panitia.profile', compact('profiles'));
+        $active = 'profiles';
+        $dropActive = '';
+        return view('panitia.profile', compact('profiles', 'active', 'dropActive'));
     }
 
     public function create()
@@ -81,5 +83,12 @@ class ProfileController extends Controller
         $profile->delete();
 
         return redirect()->route('profiles');
+    }
+
+    public function profil2(){
+        $profiles = Profile::all();
+        $active = 'profiles';
+        $dropActive = '';
+        return view('Masyarakat.profile2', compact('profiles', 'active', 'dropActive'));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Donasi;
+use App\Models\Donatur;
 
 class DonasiController extends Controller
 {
@@ -13,7 +14,9 @@ class DonasiController extends Controller
     {
         // Menentukan nomor rekening yang akan ditampilkan pada view
         $nomorRekening = '1234567890'; // Ganti dengan nomor rekening yang sesuai
-        return view('masyarakat.donasi', compact('nomorRekening'));
+        $active = 'dropdown';
+        $dropActive = 'donasi';
+        return view('masyarakat.donasi', compact('nomorRekening', 'active', 'dropActive'));
     }
 
     public function store(Request $request)
@@ -25,7 +28,9 @@ class DonasiController extends Controller
             'NAMA_PENDONASI' => 'required|string|max:25',
             'ALAMAT_PENDONASI' => 'required|string|max:30',
             'NO_TLPN_PENDONASI' => 'required|numeric',
+            'JUMLAH_DONASI' => 'required|numeric',
             'FOTO_BUKTI_TRANSFER' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'TGL_DONASI' => 'required|date',
         ]);
 
         Log::info('Validation passed');
@@ -42,7 +47,9 @@ class DonasiController extends Controller
             'NAMA_PENDONASI' => $request->NAMA_PENDONASI,
             'ALAMAT_PENDONASI' => $request->ALAMAT_PENDONASI,
             'NO_TLPN_PENDONASI' => $request->NO_TLPN_PENDONASI,
+            'JUMLAH_DONASI' => $request->JUMLAH_DONASI,
             'FOTO_BUKTI_TRANSFER' => $path ?? null,
+            'TGL_DONASI' => $request->TGL_DONASI,
         ]);
 
         Log::info('Donasi created');
@@ -50,10 +57,38 @@ class DonasiController extends Controller
         return redirect()->route('donasi.create')->with('success', 'Donasi Tersimpan.');
     }
 
+    public function destroy(Donasi $donasi)
+    {
+        $donasi->delete();
+
+        return redirect()->route('donasi.laporan')
+                        ->with('success', 'Donasi deleted successfully.');
+    }
+
     //sisi admin atau panitia
     public function laporan()
     {
         $donasi = Donasi::all();
-        return view('panitia.laporandonasi', compact('donasi'));
+        $active = 'dropdown';
+        $dropActive = 'lapDon';
+        $totalDonasi = $donasi->sum('JUMLAH_DONASI');
+        $totalDonasiFormatted = 'Rp ' . number_format($totalDonasi, 0, ',', '.');
+        return view('panitia.laporandonasi', compact('donasi', 'active', 'dropActive', 'totalDonasiFormatted'));
     }
+
+    public function donatur()
+    {
+        $donaturs = Donatur::all()->unique('NAMA');
+        $active = 'donaturs';
+        $dropActive = '';
+        return view('panitia.donatur', compact('donaturs','active', 'dropActive'));
+    }
+
+    public function showLaporan()
+    {
+    $donasi = Donasi::all();
+    $totalDonasi = $donasi->sum('jumlah');
+    return view('laporan', compact('donasi', 'totalDonasi'));
+    }
+
 }
