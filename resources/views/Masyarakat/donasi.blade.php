@@ -26,6 +26,14 @@
                   </div>
               @endif
 
+              <!-- Tampilkan pesan jika sudah terkirim -->
+              @if (session('success'))
+              <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              @endif
+              <!-- akhir Tampilkan pesan jika sudah terkirim -->
               <!-- Tampilkan Nomor Rekening -->
               <div class="alert alert-info" role="alert">
                 Nomor Rekening "APLIKASI DANA" untuk Donasi: <strong>{{ $nomorRekening }}</strong>

@@ -53,8 +53,9 @@ class DonasiController extends Controller
         ]);
 
         Log::info('Donasi created');
+        session()->flash('success', 'Terimah kasih sudah mendonasikan uang anda');
 
-        return redirect()->route('donasi.create')->with('success', 'Donasi Tersimpan.');
+        return redirect()->route('donasi.create');
     }
 
     public function destroy(Donasi $donasi)
