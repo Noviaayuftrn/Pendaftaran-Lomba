@@ -75,7 +75,7 @@ Route::post('/register', [registerController::class, 'storeregis'])->name('regis
 Route::get('/data-admin', [dataController::class, 'dataAdmin'])->name('dataAdmin');
 
 //Route lomba untuk masyarakat
-Route::get('/list-lomba', [dashpageController::class, 'listlomba']);
+Route::get('/list-lomba', [dashpageController::class, 'listlomba'])->name('list-lomba');
 
 //Route profile masyarakat
 Route::get('/profile', [ProfileController::class, 'profil2']);
