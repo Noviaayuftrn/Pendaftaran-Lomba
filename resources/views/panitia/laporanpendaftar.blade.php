@@ -112,5 +112,5 @@
       </div>
     </section>
   </main><!-- End #main -->
-
+<!-- baru edit-->
   @endsection
