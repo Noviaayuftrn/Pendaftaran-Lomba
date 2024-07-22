@@ -76,12 +76,14 @@
                                           Lihat</button></td>
                                         <td>{{ $item->TGL_DONASI }}</td>
                                         <td>
-                                        <!-- Tombol untuk menghapus donasi -->
+                                        <!-- Tombol untuk menghapus donasi pada super admin -->
+                                        @if (auth()->user()->level == 1)
                                         <form action="{{ route('donasi.destroy', $item->ID_DONASI) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Hapus</button>
                                         </form>
+                                        @endif
                                     </td>
                                     </tr>
 

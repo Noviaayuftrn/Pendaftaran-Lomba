@@ -93,14 +93,16 @@
                       <td>{{ $item->JENIS_KELAMIN }}</td>
                       <td>{{ $item->NOMOR_TELPON }}</td>
                       <td>{{ $item->TANGGAL_PENDAFTARAN }}</td>
-                      <td>{{ $item->lomba->NAMA_LOMBA }}</td>
+                      <td>{{ optional($item->lomba)->NAMA_LOMBA ?? 'N/A' }}</td>
                       <td>
-                      <!-- Tombol untuk menghapus donasi -->
+                      <!-- Tombol untuk menghapus daftar pendaftar pada super admin -->
+                      @if (auth()->user()->level == 1)
                       <form action="{{ route('pendaftaran.destroy', $item->ID_MASYARAKAT) }}" method="POST">
                           @csrf
                           @method('DELETE')
                           <button type="submit" class="btn btn-danger">Hapus</button>
                       </form>
+                      @endif
                       </td>
                   </tr>
                   @endforeach
@@ -112,5 +114,5 @@
       </div>
     </section>
   </main><!-- End #main -->
-
+<!-- baru edit-->
   @endsection

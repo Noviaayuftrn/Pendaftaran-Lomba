@@ -40,7 +40,7 @@ class TopicController extends Controller
             'image' => 'required|image|max:2048',
         ]);
 
-        $imagePath = $request->file('image')->store('topics', 'public');
+        $imagePath = $request->file('image')->store('storage', 'public');
 
         $topic = new Topic();
         $topic->judul = $request->judul;
@@ -67,7 +67,7 @@ class TopicController extends Controller
         $topic->judul = $request->judul;
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('topics', 'public');
+            $imagePath = $request->file('image')->store('storage', 'public');
             $topic->image = $imagePath;
         }
 

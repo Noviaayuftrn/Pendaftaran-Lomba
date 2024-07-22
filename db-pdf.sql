@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2024 at 09:41 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Waktu pembuatan: 22 Jul 2024 pada 16.04
+-- Versi server: 10.4.27-MariaDB
+-- Versi PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db-pendaftaran1`
+-- Database: `db-pdf`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cache`
+-- Struktur dari tabel `cache`
 --
 
 CREATE TABLE `cache` (
@@ -36,7 +36,7 @@ CREATE TABLE `cache` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cache_locks`
+-- Struktur dari tabel `cache_locks`
 --
 
 CREATE TABLE `cache_locks` (
@@ -48,7 +48,7 @@ CREATE TABLE `cache_locks` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `donasi`
+-- Struktur dari tabel `donasi`
 --
 
 CREATE TABLE `donasi` (
@@ -62,23 +62,36 @@ CREATE TABLE `donasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `donasi`
+-- Dumping data untuk tabel `donasi`
 --
 
 INSERT INTO `donasi` (`ID_DONASI`, `NAMA_PENDONASI`, `ALAMAT_PENDONASI`, `NO_TLPN_PENDONASI`, `JUMLAH_DONASI`, `FOTO_BUKTI_TRANSFER`, `TGL_DONASI`) VALUES
-(8, 'ayu', 'jl.sriwijaya', '02222222222', 3000, 'uploads/1720925727_dreamcatcher-apocalypse-save-us-dami-hd-wallpaper-uhdpaper.com-863@0@f.jpg', '2024-07-14');
+(8, 'ayu', 'jl.sriwijaya', '02222222222', 3000, 'uploads/1720925727_dreamcatcher-apocalypse-save-us-dami-hd-wallpaper-uhdpaper.com-863@0@f.jpg', '2024-07-14'),
+(10, 'rifa', 'ahmad yani', '1331313122', 4000, 'uploads/1721137998_musashi.jpeg', '2024-07-16'),
+(12, 'akmal', 'iudhwauifhawih', '12342141', 3000, 'uploads/1721278920_532630.jpg', '2024-07-18'),
+(13, 'akmal', 'JL. teluk dalam', '1111111', 4000, 'uploads/1721278968_532630.jpg', '2024-07-18'),
+(14, 'akmal', 'iudhwauifhawih', '12342141', 100000, 'uploads/1721279190_dreamcatcher-apocalypse-save-us-dami-hd-wallpaper-uhdpaper.com-863@0@f.jpg', '2024-07-18');
 
 --
--- Triggers `donasi`
+-- Trigger `donasi`
 --
 DELIMITER $$
+CREATE TRIGGER `after_donasi_delete` AFTER DELETE ON `donasi` FOR EACH ROW BEGIN
+    DELETE FROM donatur
+    WHERE NAMA = OLD.NAMA_PENDONASI
+      AND ALAMAT = OLD.ALAMAT_PENDONASI
+      AND NO_TELPON = OLD.NO_TLPN_PENDONASI;
+END
+$$
+DELIMITER ;
+DELIMITER $$
 CREATE TRIGGER `after_donasi_insert` AFTER INSERT ON `donasi` FOR EACH ROW BEGIN
-    
     IF NOT EXISTS (
         SELECT 1 FROM donatur 
-        WHERE NAMA = NEW.NAMA_PENDONASI
+        WHERE NAMA = NEW.NAMA_PENDONASI 
+          AND ALAMAT = NEW.ALAMAT_PENDONASI 
+          AND NO_TELPON = NEW.NO_TLPN_PENDONASI
     ) THEN
-        
         INSERT INTO donatur (NAMA, ALAMAT, NO_TELPON)
         VALUES (NEW.NAMA_PENDONASI, NEW.ALAMAT_PENDONASI, NEW.NO_TLPN_PENDONASI);
     END IF;
@@ -89,7 +102,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `donatur`
+-- Struktur dari tabel `donatur`
 --
 
 CREATE TABLE `donatur` (
@@ -100,18 +113,19 @@ CREATE TABLE `donatur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `donatur`
+-- Dumping data untuk tabel `donatur`
 --
 
 INSERT INTO `donatur` (`ID_DONASI`, `NAMA`, `ALAMAT`, `NO_TELPON`) VALUES
-(1, 'daffa', 'JL. CEMARA RAYA PERUMNAS BOK 1', '1111111'),
-(2, 'daffa', 'JL. CEMARA RAYA PERUMNAS BOK 1', '1111111'),
-(3, 'ayu', 'jl.sriwijaya', '02222222222');
+(3, 'ayu', 'jl.sriwijaya', '02222222222'),
+(5, 'rifa', 'ahmad yani', '1331313122'),
+(7, 'akmal', 'iudhwauifhawih', '12342141'),
+(8, 'akmal', 'JL. teluk dalam', '1111111');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
+-- Struktur dari tabel `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -127,7 +141,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jobs`
+-- Struktur dari tabel `jobs`
 --
 
 CREATE TABLE `jobs` (
@@ -143,7 +157,7 @@ CREATE TABLE `jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_batches`
+-- Struktur dari tabel `job_batches`
 --
 
 CREATE TABLE `job_batches` (
@@ -162,7 +176,7 @@ CREATE TABLE `job_batches` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lomba`
+-- Struktur dari tabel `lomba`
 --
 
 CREATE TABLE `lomba` (
@@ -172,7 +186,7 @@ CREATE TABLE `lomba` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `lomba`
+-- Dumping data untuk tabel `lomba`
 --
 
 INSERT INTO `lomba` (`ID_LOMBA`, `NAMA_LOMBA`, `gambar`) VALUES
@@ -182,7 +196,7 @@ INSERT INTO `lomba` (`ID_LOMBA`, `NAMA_LOMBA`, `gambar`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `masyarakat`
+-- Struktur dari tabel `masyarakat`
 --
 
 CREATE TABLE `masyarakat` (
@@ -197,18 +211,19 @@ CREATE TABLE `masyarakat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `masyarakat`
+-- Dumping data untuk tabel `masyarakat`
 --
 
 INSERT INTO `masyarakat` (`ID_MASYARAKAT`, `NAMA`, `UMUR`, `ALAMAT`, `JENIS_KELAMIN`, `NOMOR_TELPON`, `TANGGAL_PENDAFTARAN`, `ID_LOMBA`) VALUES
 (1, 'daffa', '17', 'JL. CEMARA RAYA PERUMNAS BOK 1', 'L', '1111111', '2024-07-13', '3'),
 (2, 'ayu', '18', 'jl.sriwijaya', 'P', '2222222222', '2024-07-13', '4'),
-(3, 'nbhb', '212', 'jl.sriwijaya', 'L', '02222222222', '2024-07-15', '3');
+(3, 'nbhb', '212', 'jl.sriwijaya', 'L', '02222222222', '2024-07-15', '3'),
+(4, 'ufihwuifbauifa', '12', 'hksn', 'L', '0909898789678', '2024-07-16', '4');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Struktur dari tabel `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -218,7 +233,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data untuk tabel `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -228,15 +243,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2024_05_20_122021_create_posts_table', 1),
 (5, '2024_05_20_140239_create_topics_table', 1),
 (6, '2024_05_27_142531_create_profiles_table', 1),
-(7, '2024_07_13_051732_donasi', 2),
-(8, '2024_07_13_054326_donatur', 2),
-(9, '2024_07_13_054812_lomba', 2),
-(10, '2024_07_13_055300_masyarakat', 2);
+(11, '2024_07_22_134546_make_level_nullable_in_users_table', 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_reset_tokens`
+-- Struktur dari tabel `password_reset_tokens`
 --
 
 CREATE TABLE `password_reset_tokens` (
@@ -248,7 +260,7 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Struktur dari tabel `posts`
 --
 
 CREATE TABLE `posts` (
@@ -260,7 +272,7 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `posts`
+-- Dumping data untuk tabel `posts`
 --
 
 INSERT INTO `posts` (`id`, `title`, `link`, `created_at`, `updated_at`) VALUES
@@ -269,7 +281,7 @@ INSERT INTO `posts` (`id`, `title`, `link`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `profiles`
+-- Struktur dari tabel `profiles`
 --
 
 CREATE TABLE `profiles` (
@@ -283,7 +295,7 @@ CREATE TABLE `profiles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `profiles`
+-- Dumping data untuk tabel `profiles`
 --
 
 INSERT INTO `profiles` (`id`, `nama`, `jabatan`, `nomor_telepon`, `gambar`, `created_at`, `updated_at`) VALUES
@@ -292,7 +304,7 @@ INSERT INTO `profiles` (`id`, `nama`, `jabatan`, `nomor_telepon`, `gambar`, `cre
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sessions`
+-- Struktur dari tabel `sessions`
 --
 
 CREATE TABLE `sessions` (
@@ -305,16 +317,16 @@ CREATE TABLE `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `sessions`
+-- Dumping data untuk tabel `sessions`
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('jror9sh8PMA3rfxKI8ikT4rOLZ6IjYdLuUJBHDVk', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiYko2TFlMSUo4WEJYSmh2NGpRYzNublpwNExhN3JJV0M1NDRMU2JkdCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9saXN0LWxvbWJhIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MDp7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1721036966);
+('eQjiSnLPFv43bUhwTta4xc9tHge4uzlFgRAvN5Tt', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiR1c5VW1HbTdwd3lSZVMyTHpweGtvSUZPZWtFNzFLVERuajNhR2tmaSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fX0=', 1721656945);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `topics`
+-- Struktur dari tabel `topics`
 --
 
 CREATE TABLE `topics` (
@@ -325,17 +337,10 @@ CREATE TABLE `topics` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `topics`
---
-
-INSERT INTO `topics` (`id`, `judul`, `image`, `created_at`, `updated_at`) VALUES
-(2, 'gambar orang', 'topics/fMrl6WAAS1ijVfPkKBBHaxBdXovI6Hy4I2uyeYlP.jpg', '2024-07-13 05:36:53', '2024-07-13 06:02:02');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -344,105 +349,106 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
+  `level` tinyint(4) NOT NULL DEFAULT 2,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'daffa', 'daffa@gmail.com', NULL, '$2y$12$mfKM3WzUOxKsfaNWU5iqWO3Bo.aeHQR2rKOmW3nt1ySs59ozxOl2q', NULL, '2024-07-12 22:10:47', '2024-07-12 22:10:47'),
-(2, 'ayu', 'admin@google.com', NULL, '$2y$12$u2vTFQedtI3opEqVJr6NS.xWH9cv.QRbrdIKU21rdEErucu1LBfca', NULL, '2024-07-12 23:53:07', '2024-07-12 23:53:07');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `level`, `remember_token`, `created_at`, `updated_at`) VALUES
+(4, 'Super Admin', 'superadmin@gmail.com', NULL, '$2y$12$7CYMGMVglAPMg8j8jmM.fuacT4ECeWkWByXyt2tMeTtST5Y2mDpn.', 1, NULL, '2024-07-22 05:31:50', '2024-07-22 05:31:50'),
+(5, 'Admin', 'Admin@gmail.com', NULL, '$2y$12$4sqp3warH3hyh8gZHHiycuLvWnM2sH619paXYd/XuysGWhBBtiSGK', 2, NULL, '2024-07-22 05:51:20', '2024-07-22 05:51:20');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `cache`
+-- Indeks untuk tabel `cache`
 --
 ALTER TABLE `cache`
   ADD PRIMARY KEY (`key`);
 
 --
--- Indexes for table `cache_locks`
+-- Indeks untuk tabel `cache_locks`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
 
 --
--- Indexes for table `donasi`
+-- Indeks untuk tabel `donasi`
 --
 ALTER TABLE `donasi`
   ADD PRIMARY KEY (`ID_DONASI`);
 
 --
--- Indexes for table `donatur`
+-- Indeks untuk tabel `donatur`
 --
 ALTER TABLE `donatur`
   ADD PRIMARY KEY (`ID_DONASI`) USING BTREE;
 
 --
--- Indexes for table `failed_jobs`
+-- Indeks untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `jobs`
+-- Indeks untuk tabel `jobs`
 --
 ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jobs_queue_index` (`queue`);
 
 --
--- Indexes for table `job_batches`
+-- Indeks untuk tabel `job_batches`
 --
 ALTER TABLE `job_batches`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `lomba`
+-- Indeks untuk tabel `lomba`
 --
 ALTER TABLE `lomba`
   ADD PRIMARY KEY (`ID_LOMBA`);
 
 --
--- Indexes for table `masyarakat`
+-- Indeks untuk tabel `masyarakat`
 --
 ALTER TABLE `masyarakat`
   ADD PRIMARY KEY (`ID_MASYARAKAT`);
 
 --
--- Indexes for table `migrations`
+-- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `password_reset_tokens`
+-- Indeks untuk tabel `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `posts`
+-- Indeks untuk tabel `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `profiles`
+-- Indeks untuk tabel `profiles`
 --
 ALTER TABLE `profiles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sessions`
+-- Indeks untuk tabel `sessions`
 --
 ALTER TABLE `sessions`
   ADD PRIMARY KEY (`id`),
@@ -450,87 +456,87 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
--- Indexes for table `topics`
+-- Indeks untuk tabel `topics`
 --
 ALTER TABLE `topics`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `donasi`
+-- AUTO_INCREMENT untuk tabel `donasi`
 --
 ALTER TABLE `donasi`
+  MODIFY `ID_DONASI` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT untuk tabel `donatur`
+--
+ALTER TABLE `donatur`
   MODIFY `ID_DONASI` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `donatur`
---
-ALTER TABLE `donatur`
-  MODIFY `ID_DONASI` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `failed_jobs`
+-- AUTO_INCREMENT untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jobs`
+-- AUTO_INCREMENT untuk tabel `jobs`
 --
 ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `lomba`
+-- AUTO_INCREMENT untuk tabel `lomba`
 --
 ALTER TABLE `lomba`
   MODIFY `ID_LOMBA` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `masyarakat`
+-- AUTO_INCREMENT untuk tabel `masyarakat`
 --
 ALTER TABLE `masyarakat`
-  MODIFY `ID_MASYARAKAT` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_MASYARAKAT` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `posts`
+-- AUTO_INCREMENT untuk tabel `posts`
 --
 ALTER TABLE `posts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `profiles`
+-- AUTO_INCREMENT untuk tabel `profiles`
 --
 ALTER TABLE `profiles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `topics`
+-- AUTO_INCREMENT untuk tabel `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

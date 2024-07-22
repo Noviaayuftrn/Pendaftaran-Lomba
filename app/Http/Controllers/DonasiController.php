@@ -29,7 +29,7 @@ class DonasiController extends Controller
             'ALAMAT_PENDONASI' => 'required|string|max:30',
             'NO_TLPN_PENDONASI' => 'required|numeric',
             'JUMLAH_DONASI' => 'required|numeric',
-            'FOTO_BUKTI_TRANSFER' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'FOTO_BUKTI_TRANSFER' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'TGL_DONASI' => 'required|date',
         ]);
 
@@ -53,8 +53,9 @@ class DonasiController extends Controller
         ]);
 
         Log::info('Donasi created');
+        session()->flash('success', 'Terimah kasih sudah mendonasikan uang anda');
 
-        return redirect()->route('donasi.create')->with('success', 'Donasi Tersimpan.');
+        return redirect()->route('donasi.create');
     }
 
     public function destroy(Donasi $donasi)

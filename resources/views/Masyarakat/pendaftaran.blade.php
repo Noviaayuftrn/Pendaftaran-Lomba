@@ -126,7 +126,7 @@
             </div>
             <!-- Tambahkan tombol kembali di sini -->
             <div class="container">
-              <a href="{{ route('list-lomba') }}" class="btn btn-primary mt-3">Kembali ke Halaman Lomba</a>
+              <a href="{{ route('list-lomba') }}" class="btn btn-warning mt-3">Kembali ke Halaman Lomba</a>
             </div>
           </form><!-- End Formulir Pendaftaran -->
 

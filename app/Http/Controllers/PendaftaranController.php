@@ -24,7 +24,7 @@ class PendaftaranController extends Controller
             'UMUR' => 'required|string|max:3',
             'ALAMAT' => 'required|string|max:30',
             'JENIS_KELAMIN' => 'required|string|max:1',
-            'NOMOR_TELPON' => 'required|numeric',
+            'NOMOR_TELPON' => 'required|numeric|max:15',
             'TANGGAL_PENDAFTARAN' => 'required|date',
             'ID_LOMBA' => 'required',
         ]);

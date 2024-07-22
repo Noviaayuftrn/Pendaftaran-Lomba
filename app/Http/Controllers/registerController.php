@@ -22,8 +22,11 @@ class registerController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'level' => 2, // Tambahkan level di sini jika perlu
         ]);
 
         return to_route('login');
     }
 }
+
+//pada akun Admin@gmail.com passwordnya "admin"
