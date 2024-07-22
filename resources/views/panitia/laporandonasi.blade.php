@@ -54,7 +54,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID Donasi</th>
+                                        <th scope="col">No.</th>
                                         <th scope="col">Nama Pendonasi</th>
                                         <th scope="col">Alamat Pendonasi</th>
                                         <th scope="col">No. Telepon Pendonasi</th>
@@ -65,9 +65,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php $no = 1; @endphp
                                     @foreach($donasi as $item)
                                     <tr>
-                                        <td>{{ $item->ID_DONASI }}</td>
+                                        <td>{{ $no++ }}</td>
                                         <td>{{ $item->NAMA_PENDONASI }}</td>
                                         <td>{{ $item->ALAMAT_PENDONASI }}</td>
                                         <td>{{ $item->NO_TLPN_PENDONASI }}</td>

@@ -54,16 +54,17 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID</th>
+                                        <th scope="col">No.</th>
                                         <th scope="col">Nama Donatur</th>
                                         <th scope="col">Alamat Donatur</th>
                                         <th scope="col">No. Telepon Pendonatur</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php $no = 1; @endphp
                                     @foreach($donaturs as $donatur)
                                     <tr>
-                                    <td>{{ $donatur->ID_DONASI }}</td>
+                                    <td>{{ $no++ }}</td>
                                     <td>{{ $donatur->NAMA }}</td>
                                     <td>{{ $donatur->ALAMAT }}</td>
                                     <td>{{ $donatur->NO_TELPON }}</td>

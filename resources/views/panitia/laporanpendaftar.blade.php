@@ -72,6 +72,7 @@
               <table class="table">
                 <thead>
                   <tr>
+                    <th scope="col">No.</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Umur</th>
                     <th scope="col">Alamat</th>
@@ -85,8 +86,10 @@
                 <tbody>
                   
                   <!-- Assuming you have a loop here to fill table rows -->
+                  @php $no = 1; @endphp
                   @foreach($pendaftars as $item)
                   <tr>
+                      <td>{{ $no++ }}</td>
                       <td>{{ $item->NAMA }}</td>
                       <td>{{ $item->UMUR }}</td>
                       <td>{{ $item->ALAMAT }}</td>

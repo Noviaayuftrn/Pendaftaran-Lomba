@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Donasi;
@@ -79,7 +80,9 @@ class DonasiController extends Controller
 
     public function donatur()
     {
-        $donaturs = Donatur::all()->unique('NAMA');
+        $donaturs = Donatur::select('NAMA', 'ALAMAT', DB::raw('MIN(ID_DONASI) as ID_DONASI'), DB::raw('MAX(NO_TELPON) as NO_TELPON'))
+        ->groupBy('NAMA', 'ALAMAT')
+        ->get();
         $active = 'donaturs';
         $dropActive = '';
         return view('panitia.donatur', compact('donaturs','active', 'dropActive'));
