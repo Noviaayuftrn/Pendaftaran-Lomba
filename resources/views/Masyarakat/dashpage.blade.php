@@ -23,7 +23,7 @@
 
                 <!-- Loop through posts from the database -->
                 @foreach($posts as $post)
-                <div class="col-xxl-12 col-md-6">
+                <div class="col-xxl-12 col-md-6 ">
                     <div class="card info-card sales-card">
                         <div class="card-body">
                             <h5 class="card-title">Dokumentasi</h5>
@@ -43,14 +43,14 @@
 <!-- End of Dokumentasi -->
 
 <!-- Informasi -->
-<div class="card">
+<div class="card mb-3">
   <div class="card-body pb-0">
       <h5 class="card-title">Informasi</h5>
 
       <div class="news">
           <!-- Loop through topics from the database -->
           @foreach($topics as $topic)
-          <div class="post-item clearfix">
+          <div class="post-item clearfix mb-5">
               <img src="{{ asset('storage/' . $topic->image) }}" alt="Topic Image" class="float-start me-3">
               <h4><a href="#">{{ $topic->judul }}</a></h4>            
             <!-- Show Button -->

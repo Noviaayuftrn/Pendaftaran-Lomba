@@ -25,6 +25,7 @@
                 <h4>{{ $profile->nama }}</h4>
                 <p>{{ $profile->jabatan }}</p>
                 <p>{{ $profile->nomor_telepon }}</p>
+                <hr>
             </div>
             @endforeach
         </div><!-- End profiles -->
